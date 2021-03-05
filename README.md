@@ -4,6 +4,17 @@ This is a Twitch chat bot using an implementation of [PircBot](http://www.jibble
 
 This bot allows you to create and remove custom commands.
 
+
+### Usage:
+
+```
+cd /path/to/where/you/to/clone
+git clone https://github.com/JohnStar128/boxofbagelbot.git
+mvn package
+java -jar target/TwitchBot1.jar
+Edit config.json with appropriate values
+``` 
+
 ### Hardcoded commands:
 
 - !about -- Print information about the bot.
