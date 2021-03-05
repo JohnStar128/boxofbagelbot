@@ -8,7 +8,7 @@ This bot allows you to create and remove custom commands.
 ### Usage:
 
 ```
-cd /path/to/where/you/to/clone
+cd /path/to/where/you/want/to/clone
 git clone https://github.com/JohnStar128/boxofbagelbot.git
 mvn package
 java -jar target/TwitchBot1.jar
