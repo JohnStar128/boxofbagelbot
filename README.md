@@ -14,6 +14,7 @@ mvn package
 java -jar target/TwitchBot1.jar
 Edit config.json with appropriate values
 ``` 
+Since the config and command storages will be generated in the working directory the first time the bot is run, it's recommended to move the jar file into its own directory.
 
 ### Hardcoded commands:
 
