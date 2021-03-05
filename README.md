@@ -7,8 +7,8 @@ This bot allows you to create and remove custom commands.
 ### Hardcoded commands:
 
 - !about -- Print information about the bot.
-- !addcommand <name> <output> -- Return a message when a user types <name>
-- !removecommand <name> -- Remove the return message associated with <name>
+- !addcommand \<name> \<output> -- Return a message when a user types <name>
+- !removecommand \<name> -- Remove the return message associated with <name>
 - !commands -- List all hardcoded and user-added commands,
 - !coin return the result of a 50/50 chance.
 
