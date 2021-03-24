@@ -23,6 +23,7 @@ public class TwitchBot extends PircBot {
     public ConfigManager configs = new ConfigManager(this);
     public Random random = new Random();
     public String channel = ConfigManager.getChannelName();
+    public static final String ANSI_RED = "\u001B[31m";
     public List<String> modList = new ArrayList<>();
     public static String userDir = System.getProperty("user.dir");
     public static Map<String, String> commands = new HashMap<>();
@@ -82,6 +83,23 @@ public class TwitchBot extends PircBot {
         }
     }
 
+    public String parsePlaceholders(String msg) {
+        String returnMsg = "";
+        String coinResult;
+        // Coin placeholder -- rolls a number between 0 and 1
+        // Sets output to heads or tails
+        if (msg.contains("%coin%")) {
+            int returnInt = random.nextInt(2);
+            if (returnInt == 0) {
+                coinResult = "heads";
+            } else {
+                coinResult = "tails";
+            }
+            returnMsg = msg.replace("%coin%", coinResult);
+        }
+        return returnMsg;
+    }
+
     public void onMessage(String chan, String sender, String login, String hostname, String msg) {
         // Hardcoded commands
         if (msg.toLowerCase(Locale.ROOT).startsWith("!about")) {
@@ -98,9 +116,9 @@ public class TwitchBot extends PircBot {
                 for (String name : commands.keySet()) {
                     joiner.add(name);
                 }
-                sendMessage(channel, "The bot commands are: !about, !commands, !addcommand, !removecommand and !coin. User-added commands are: " + joiner);
+                sendMessage(channel, "The bot commands are: !about, !commands, !addcommand, !removecommand and !editcommand. User-added commands are: " + joiner);
             } else {
-                sendMessage(channel, "The bot commands are: !about, !commands, !addcommand, !removecommand and !coin. There are no user-added commands currently.");
+                sendMessage(channel, "The bot commands are: !about, !commands, !addcommand, !removecommand and !editcommand. There are no user-added commands currently.");
             }
             return;
         }
@@ -204,24 +222,58 @@ public class TwitchBot extends PircBot {
             sendMessage(channel, "Command " + title + " removed.");
         }
 
-        // Flip a coin, 50/50 odds
-        // @TODO Remove in the future when placeholders are implemented
-        if (msg.toLowerCase(Locale.ROOT).startsWith("!coin")) {
-            String coin;
-
-            if (random.nextInt(2) == 0) {
-                coin = "heads";
-            } else {
-                coin = "tails";
+        // Edit an existing command
+        if (msg.toLowerCase(Locale.ROOT).contains("!editcommand")) {
+            String[] msgSplitter = msg.split(" ");
+            String title;
+            String returnMsg;
+            StringJoiner joiner = new StringJoiner(" ");
+            BufferedWriter writer = null;
+            try {
+                writer = Files.newBufferedWriter(Path.of(userDir + "/commands.json"));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            sendMessage(channel, "The coin landed on " + coin + ".");
+            // Print usage if given incorrect syntax
+            if (!(msgSplitter.length > 2)) {
+                sendMessage(channel, "Incorrect usage: !editcommand <commandname> <message>");
+                return;
+            }
+
+            // Error if command doesn't exist
+            if (!(commands.containsKey(msgSplitter[1]))) {
+                sendMessage(channel, "Command does not exist");
+                return;
+            }
+
+            title = msgSplitter[1];
+            // Concatenate their message, omitting the first two parameters
+            for (String s : msgSplitter) {
+                if (msgSplitter[0].equalsIgnoreCase(s) || msgSplitter[1].equalsIgnoreCase(s)) { continue; }
+                joiner.add(s);
+            }
+
+            returnMsg = joiner.toString();
+            commands.replace(title, returnMsg);
+            gson.toJson(commands, writer);
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // Done
+            sendMessage(channel, "Command " + title + " edited");
             return;
+
         }
 
         // Print user-added commands
         if (commands.containsKey(msg)) {
-            sendMessage(channel, commands.get(msg));
+            String finalMessage = parsePlaceholders(commands.get(msg));
+            sendMessage(channel, finalMessage);
         }
     }
 }

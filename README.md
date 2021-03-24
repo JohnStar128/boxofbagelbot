@@ -2,10 +2,7 @@
 
 This is a Twitch chat bot using an implementation of [PircBot](http://www.jibble.org/pircbot.php) for basic ask-and-receive commands.
 
-This bot allows you to create and remove custom commands.
-
-
-### Usage:
+### Building:
 
 ```
 cd /path/to/where/you/want/to/clone
@@ -21,8 +18,16 @@ Since the config and command storages will be generated in the working directory
 - !about -- Print information about the bot.
 - !addcommand \<name> \<output> -- Return a message when a user types <name>
 - !removecommand \<name> -- Remove the return message associated with <name>
-- !commands -- List all hardcoded and user-added commands,
-- !coin return the result of a 50/50 chance.
+- !commands -- List all hardcoded and user-added commands
+- !editcommand \<name> -- Edit an existing command.
+
+
+### Placeholders:
+Placeholders are strings surrounded by percentage signs `%`. Adding placeholders in your command will run return dynamic output.\
+Available placeholders are:
+```
+%coin% -- Return heads or tails
+```
 
 
 ### Configuration
