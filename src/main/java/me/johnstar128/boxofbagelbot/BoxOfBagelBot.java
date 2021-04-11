@@ -79,7 +79,7 @@ public class BoxOfBagelBot extends PircBot {
             sendMessage(channel, "The bot prefix is currently: " + prefix);
         }
 
-        if (msgSplit[0].startsWith("!about")) {
+        if (msgSplit[0].startsWith(prefix + "about")) {
             sendMessage(channel, "This is a chat bot lovingly titled \"BoxOfBagelBot\". " +
                     "Created by JohnStar128, written in Java using an implementation of PircBot. " +
                     "Source code: https://github.com/johnstar128/boxofbagelbot");
