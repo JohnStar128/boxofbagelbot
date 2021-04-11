@@ -30,7 +30,7 @@ public class ConfigManager {
         File cfgDest = new File(userDir + "/config.yml");
 
         if (!(cmdDest.exists())) {
-            System.out.println("CommandsSection file doesn't exist! Generating a new one...");
+            System.out.println("Commands file doesn't exist! Generating a new one...");
             try {
                 cmdOut = new BufferedOutputStream(new FileOutputStream(cmdDest));
 

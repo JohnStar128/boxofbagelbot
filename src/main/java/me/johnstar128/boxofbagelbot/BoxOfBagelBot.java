@@ -179,7 +179,6 @@ public class BoxOfBagelBot extends PircBot {
 
         // Edit the arguments of an existing command
         if (msgSplit[0].startsWith(prefix + "editcommand")) {
-
             if (!(modList.contains(sender))) {
                 sendMessage(channel, "This command is only available to moderators or the broadcaster.");
                 return;
