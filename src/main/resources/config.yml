@@ -1,0 +1,3 @@
+channel: "#channel"
+oauth: "oauth-goes-here"
+prefix: "!"
