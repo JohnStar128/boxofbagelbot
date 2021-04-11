@@ -8,7 +8,7 @@ This project uses Maven to build and is set to build with Java 14. I don't belie
 cd /path/to/where/you/want/to/clone
 git clone https://github.com/JohnStar128/boxofbagelbot.git
 mvn package
-java -jar target/BoxOfBagelBot-2.0.jar
+java -jar target/BoxOfBagelBot-2.0-SNAPSHOT.jar
 Stop the bot and edit config.yml with appropriate values
 ``` 
 Since the config and command storages will be generated in the working directory the first time the bot is run, it's recommended to move the jar file into its own directory.
