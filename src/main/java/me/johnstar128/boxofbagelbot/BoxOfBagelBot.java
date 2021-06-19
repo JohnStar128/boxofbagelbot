@@ -1,5 +1,6 @@
 package me.johnstar128.boxofbagelbot;
 
+import me.johnstar128.boxofbagelbot.commands.Placeholders;
 import me.johnstar128.boxofbagelbot.config.ConfigManager;
 import me.johnstar128.boxofbagelbot.commands.Command;
 import org.jibble.pircbot.IrcException;
@@ -15,6 +16,7 @@ import java.util.StringJoiner;
 
 public class BoxOfBagelBot extends PircBot {
 
+    public Placeholders placeholder = new Placeholders(this);
     public static ConfigManager cfgMgn = new ConfigManager();
     public static String channel;
     public static String oAuth;
@@ -211,7 +213,7 @@ public class BoxOfBagelBot extends PircBot {
         if (!cfgMgn.cmdList.getCommands().isEmpty() && msgSplit[0].startsWith(prefix)) {
             for (Command s : cfgMgn.cmdList.getCommands()) {
                 if (msgSplit[0].equalsIgnoreCase(prefix + s.getName())) {
-                    sendMessage(channel, s.getArgs());
+                    sendMessage(channel, placeholder.parsePlaceholders(s.getArgs()));
                 }
             }
         }
