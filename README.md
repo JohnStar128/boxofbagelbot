@@ -3,7 +3,7 @@
 This is a Twitch chat bot using an implementation of [PircBot](http://www.jibble.org/pircbot.php) for basic ask-and-receive commands.
 
 ### Building:
-This project uses Maven to build and is set to build with Java 14. I don't believe it uses any Java 14-specific functionality, so it's very likely you can run with any older or newer Java version.
+This project uses Maven to build and is set to build with Java 16. I don't believe it uses any Java 16-specific functionality, so it's very likely you can run with any older or newer Java version.
 ```
 cd /path/to/where/you/want/to/clone
 git clone https://github.com/JohnStar128/boxofbagelbot.git
@@ -46,3 +46,25 @@ commands:
     args: "This is what !hi returns"
 
 ```
+
+### Placeholders
+Placeholders are special strings you can put into your commands to replace with variable data when a user runs the command.\
+Currently there are two placeholders:
+- coin -- Returns `heads` or `tails` with a 50% chance.
+- time -- Returns the current system time in `hh:mm MM/dd/yyyy` format.
+
+An example of placeholders being used:
+```yml 
+commands:
+  - name: "flipacoin"
+    args: "The coin landed on ${coin}."
+  - name: "whattimeisit"
+    args: "It is currently ${time}."
+```
+```
+<username>: !flipacoin
+<boxofbagelbot>: The coin landed on tails.
+<username>: !whattimeisit
+<boxofbagelbot>: It is currently 11:57 on 01/28/21.
+```
+
