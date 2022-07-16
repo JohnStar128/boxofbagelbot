@@ -28,7 +28,7 @@ public class BoxOfBagelBot extends PircBot {
         cfgMgn.generateConfigs();
         cfgMgn.readConfigs();
         try {
-            bot.connect("irc.twitch.tv", 6667, oAuth);
+            bot.connect("irc.chat.twitch.tv", 6667, oAuth);
         } catch (IOException | IrcException e) {
             e.printStackTrace();
         }
